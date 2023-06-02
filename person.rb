@@ -27,12 +27,24 @@ class Person < Nameable
   end
 
   def add_rental(book, date)
-    Rental.new(date, book, self)
+    Rental.new(date, self, book)
   end
 
   private
 
   def of_age?
     @age >= 18
+  end
+
+  public
+
+  def to_h
+    {
+      age: @age,
+      name: @name,
+      parent_permission: @parent_permission,
+      id: @id,
+      rentals: @rentals.map(&:to_h)
+    }
   end
 end
